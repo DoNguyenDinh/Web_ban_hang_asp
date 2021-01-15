@@ -1,0 +1,3 @@
+zô trang admin: localhost://(post)/Admin/
+mở appsetting đổi Server thành tên SQL Server trên máy của mấy ông
+ráng tìm cách load dữ liệu lên trang người dùng

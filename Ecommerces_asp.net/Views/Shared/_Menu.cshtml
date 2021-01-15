@@ -1,0 +1,117 @@
+﻿<div class="agileits_header">
+    <div class="container">
+        <div class="w3l_offers">
+            <p>SALE UP TO 70% OFF. USE CODE "SALE70%" . <a href="products.html">SHOP NOW</a></p>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="agile-login">
+                <ul>
+                    <li><a asp-controller="Acount" asp-action="Logout"> Logout </a></li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="agile-login">
+                <ul>
+                    <li><a asp-controller="Acount" asp-action="Register"> Create Account </a></li>
+                    <li><a asp-controller="Acount" asp-action="Login">Login</a></li>
+
+
+                </ul>
+            </div>
+        }
+        <div class="product_list_header">
+            <form action="#" method="post" class="last">
+                <input type="hidden" name="cmd" value="_cart">
+                <input type="hidden" name="display" value="1">
+                <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+            </form>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+<div class="logo_products">
+    <div class="container">
+        <div class="w3ls_logo_products_left1">
+            <ul class="phone_email">
+                <li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
+
+            </ul>
+        </div>
+        <div class="w3ls_logo_products_left">
+            <h1><a asp-controller="Home" asp-action="Index">super Market</a></h1>
+        </div>
+        <div class="w3l_search">
+            <form asp-controller="Home" asp-action="Search" method="get">
+                <input type="text" name="search" value="@ViewData["GetDetails"]" placeholder="Search for a Product...">
+                <button type="submit" class="btn btn-default search" value="Search" aria-label="Left Align">Search
+                </button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+
+<div class="navigation-agileits">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header nav_2">
+                <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a asp-controller="Home" asp-action="Index" class="act">Home</a></li>
+                    <!-- Mega Menu -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category<b class="caret"></b></a>
+                        <ul class="dropdown-menu multi-column columns-3">
+                            <div class="row">
+                                <div class="multi-gd-img">
+                                    <ul class="multi-column-dropdown">
+                                        <h6>All Groceries</h6>
+                                       @await Component.InvokeAsync("Category") 
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </ul>
+                    </li>
+
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Brand<b class="caret"></b></a>
+                        <ul class="dropdown-menu multi-column columns-3">
+                            <div class="row">
+                                <div class="multi-gd-img">
+                                    <ul class="multi-column-dropdown">
+                                        <h6>Tea & Coeffe</h6>
+                                       @await Component.InvokeAsync("Supplier") 
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </ul>
+                    </li>
+
+                   <li><a asp-controller="Home" asp-action="about">About</a></li>
+                    <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

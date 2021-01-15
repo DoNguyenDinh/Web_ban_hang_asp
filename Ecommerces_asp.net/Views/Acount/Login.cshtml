@@ -1,0 +1,110 @@
+﻿@{
+    Layout = "_layout1";
+}
+@model Ecommerces_asp.net.Areas.Admin.Models.Login
+
+
+<div class="agileits_header">
+    <div class="container">
+        <div class="w3l_offers">
+            <p>SALE UP TO 70% OFF. USE CODE "SALE70%" . <a href="products.html">SHOP NOW</a></p>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="agile-login">
+                <ul>
+                    <li><a asp-controller="Acount" asp-action="Logout"> Logout </a></li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="agile-login">
+                <ul>
+                    <li><a asp-controller="Acount" asp-action="Register"> Create Account </a></li>
+                    <li><a asp-controller="Acount" asp-action="Login">Login</a></li>
+
+
+                </ul>
+            </div>
+        }
+        <div class="product_list_header">
+            <form action="#" method="post" class="last">
+                <input type="hidden" name="cmd" value="_cart">
+                <input type="hidden" name="display" value="1">
+                <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+            </form>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+<div class="logo_products">
+    <div class="container">
+        <div class="w3ls_logo_products_left1">
+            <ul class="phone_email">
+                <li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
+
+            </ul>
+        </div>
+        <div class="w3ls_logo_products_left">
+            <h1><a asp-controller="Home" asp-action="Index">super Market</a></h1>
+        </div>
+        <div class="w3l_search">
+            <form asp-controller="Home" asp-action="Search" method="get">
+                <input type="text" name="search" value="@ViewData["GetDetails"]" placeholder="Search for a Product...">
+                <button type="submit" class="btn btn-default search" value="Search" aria-label="Left Align">
+                    Search
+                </button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <li class="active">Login Page</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <h2>Login Form</h2>
+
+        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="RememberMe" type="checkbox" class="custom-control-input">
+                        <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+
+        </div>
+        <h4>For New People</h4>
+        <p><a href="registered.html">Register Here</a> (Or) go back to <a href="index.html">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+    </div>
+</div>

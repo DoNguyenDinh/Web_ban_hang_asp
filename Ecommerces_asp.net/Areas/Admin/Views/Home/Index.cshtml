@@ -1,0 +1,23 @@
+﻿@model Ecommerces_asp.net.Areas.Admin.Models.Member
+<h3 style="padding-top:100px">Admin Page</h3>
+<div class="profile_details">
+    <ul>
+        <li class="dropdown profile_details_drop">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <div class="profile_img">
+                    <span class="prfil-img"><img src="~/Admin/images/a.png" alt=""> </span>
+                    <div class="user-name">
+                        <p>@Model.Username</p>
+                        <span>Administrator</span>
+                    </div>
+                    <i class="fa fa-angle-down lnr"></i>
+                    <i class="fa fa-angle-up lnr"></i>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+            <ul class="dropdown-menu drp-mnu">
+                <li> <a asp-controller="Login" asp-action="Index"></i> Logout</a> </li>
+            </ul>
+        </li>
+    </ul>
+</div>

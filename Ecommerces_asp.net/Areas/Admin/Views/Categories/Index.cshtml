@@ -1,0 +1,242 @@
+﻿@model Ecommerces_asp.net.Areas.Admin.Models.Category
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm loại sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="NameVN" class="control-label"></label>
+                        <input id="namevn" asp-for="NameVN"  class="form-control" />
+                        <span asp-validation-for="NameVN" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" id="name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_create_categories" class="btn btn-primary">Thêm Mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm loại sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" id="edit_id" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="NameVN" class="control-label"></label>
+                        <input  asp-for="NameVN" id="edit_namevn"  class="form-control" />
+                        <span asp-validation-for="NameVN" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input  asp-for="Name" id="edit_name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_update_loaisanpham" class="btn btn-primary">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<h2 style="padding-top:100px">Categories</h2>
+<center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddModal">Thêm</button></center>
+
+
+<table class="table table-bordered" style="padding-top:100px">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameVN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+      
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.cate)
+        {
+            <tr>
+                <td>
+                    @item.NameVN
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <button type="button" name="edit_loaisanpham" data-idloaisp="@item.Id" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Edit</button>
+                </td>
+                @*<td>
+                    <button type="button" name="detail_loaisp" data-idloaisp="@item.Id" class="btn btn-warning" data-toggle="modal" data-target="#DetailModal">Detail</button>
+                </td>*@
+                <td>
+                    <button type="button" name="btn_delete_loaisanpham" data-idloaisp="@item.Id" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{ 
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    function addLoaiSP() {
+        var insert = {};
+        insert.NameVN = $("#namevn").val();
+        insert.Name = $("#name").val();
+        $.ajax({
+            url: "../../api/CategoriesAPI/Postcate",
+            type: "POST",
+            contentType: "Application/json;charset-utf-8",
+            data: JSON.stringify(insert),
+            dataType: "json"
+        }).done(function (reponse) {
+            swal({
+                title: "Thêm loại sản phẩm thành công",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.reload();
+                    } else {
+                        swal("nothing happen");
+                    }
+                });
+        }).fail(function () {
+            alert('Thất bại !');
+        });
+    }
+    function deleteLoaiSP(id) {
+
+        $.ajax({
+            url: "../../api/CategoriesAPI/Delete/" + id,
+            type: "DELETE",
+            contentType: "Application/json;charset-utf-8",
+            dataType: "json"
+        }).done(function (reponse) {
+            swal({
+                title: "Xóa loại sản phẩm thành công",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.reload();
+                    } else {
+                        swal("nothing happen");
+                    }
+                });
+            
+        }).fail(function () {
+            alert('Thất bại !');
+        });
+    }
+    function getLoaiSP(id) {
+        $.ajax({
+            url: "../../api/CategoriesAPI/GetCategories/" + id,
+            type: "GET",
+            contentType: "Application/json;charset-utf-8",
+            dataType: "json"
+        }).done(function (reponse) {
+            $("#edit_id").val(reponse.id);
+            $("#edit_namevn").val(reponse.nameVN);
+            $("#edit_name").val(reponse.name);
+        }).fail(function () {
+            alert('Thất bại !');
+        });
+    }
+    function updateLoaiSP(id) {
+        var update = {}
+        update.Id = parseInt(id);
+        update.NameVN = $("#edit_namevn").val();
+        update.Name = $("#edit_name").val();
+        $.ajax({
+            url: "../../api/CategoriesAPI/PutCate/" + id,
+            type: "PUT",
+            contentType: "Application/json;charset-utf-8",
+            data: JSON.stringify(update),
+            dataType: "json"
+        }).done(function (reponse) {
+            swal({
+                title: "Cập nhật loại sản phẩm thành công",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.reload();
+                    } else {
+                        swal("nothing happen");
+                    }
+                });
+        }).fail(function () {
+            alert('Thất bại !');
+        });
+    }
+    $(document).ready(function () {
+        $('button[name=btn_create_categories]').click(function (e) {
+            addLoaiSP();
+            e.preventDefault();
+        });
+        $('button[name=btn_delete_loaisanpham]').click(function (e) {
+            var id = $(this).data("idloaisp");
+            deleteLoaiSP(id);
+            e.preventDefault();
+        });
+        $('button[name=edit_loaisanpham]').click(function (e) {
+            var id = $(this).data("idloaisp");
+            getLoaiSP(id);
+            e.preventDefault();
+        });
+      
+        $('button[name=btn_update_loaisanpham]').click(function (e) {
+            var id = $("#edit_id").val();
+            updateLoaiSP(id);
+            e.preventDefault();
+        });
+    });
+
+</script>
+    }
+

@@ -1,0 +1,296 @@
+﻿@model Ecommerces_asp.net.Areas.Admin.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm chi tiết hóa đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="CustommerName" class="control-label"></label>
+                        <input asp-for="CustommerName"  id="name" class="form-control" />
+                        <span asp-validation-for="CustommerName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label"></label>
+                        <input asp-for="ProductName" id="product" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnitPrice" class="control-label"></label>
+                        <input asp-for="UnitPrice" id="gia" class="form-control" />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" id="soluong" class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Discount" class="control-label"></label>
+                        <input asp-for="Discount" id="discount" class="form-control" />
+                        <span asp-validation-for="Discount" class="text-danger"></span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_create_custommer" class="btn btn-primary">Thêm Mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa chi tiết hóa đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" id="edit_id" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="CustommerName" class="control-label"></label>
+                        <input asp-for="CustommerName" id="edit_name" class="form-control" />
+                        <span asp-validation-for="CustommerName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label"></label>
+                        <input asp-for="ProductName" id="edit_product" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UnitPrice" class="control-label"></label>
+                        <input asp-for="UnitPrice" id="edit_gia" class="form-control" />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" id="edit_soluong"class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Discount" class="control-label"></label>
+                        <input asp-for="Discount" id="edit_discount" class="form-control" />
+                        <span asp-validation-for="Discount" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_update_custommer" class="btn btn-primary">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 style="padding-top:100px">Order Detail</h2>
+
+<p>
+    <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddModal">Thêm</button></center>
+</p>
+<table class="table table-bordered" style="padding-top:100px">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustommerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.detail)
+        {
+            <tr>
+                <td>
+                    @item.CustommerName
+                </td>
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.Discount
+                </td>
+                <td>
+                    <button type="button" name="edit_custommer" data-idloaisp="@item.Id" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Edit</button>
+                </td>
+                @*<td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    </td>*@
+                <td>
+                    <button type="button" name="btn_delete_custommer" data-idloaisp="@item.Id" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function addLoaiSP() {
+            var insert = {};
+            insert.CustommerName = $("#name").val();
+            insert.ProductName = $("#product").val();
+            insert.UnitPrice =parseInt($("#gia").val());
+            insert.Quantity =parseInt($("#soluong").val());
+            insert.Discount =parseInt($("#discount").val());
+            $.ajax({
+                url: "../../api/OrderDetailAPI/PostCus",
+                type: "POST",
+                contentType: "Application/json;charset-utf-8",
+                data: JSON.stringify(insert),
+                dataType: "json"
+            }).done(function (reponse) {
+                swal({
+                    title: "Thêm chi tiết đơn hàng thành công",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.reload();
+                        } else {
+                            swal("nothing happen");
+                        }
+                    });
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        function getLoaiSP(id) {
+            $.ajax({
+                url: "../../api/OrderDetailAPI/GetCus/" + id,
+                type: "GET",
+                contentType: "Application/json;charset-utf-8",
+                dataType: "json"
+            }).done(function (reponse) {
+                $("#edit_id").val(reponse.id);
+                $("#edit_name").val(reponse.custommerName);
+                $("#edit_product").val(reponse.productName);
+                $("#edit_gia").val(reponse.unitPrice);
+                $("edit_soluong").val(reponse.quantity);
+                $("#edit_discount").val(reponse.discount);
+
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        function updateLoaiSP(id) {
+            var update = {}
+            update.Id = parseInt(id);
+            update.CustommerName = $("#edit_name").val();
+            update.ProductName = $("#edit_product").val();
+            update.UnitPrice = parseInt($("#edit_gia").val());
+            update.Quantity = parseInt($("#edit_soluong").val());
+            update.Discount = parseInt($("#edit_discount").val());
+            $.ajax({
+                url: "../../api/OrderDetailAPI/PutCus/" + id,
+                type: "PUT",
+                contentType: "Application/json;charset-utf-8",
+                data: JSON.stringify(update),
+                dataType: "json"
+            }).done(function (reponse) {
+                swal({
+                    title: "cập nhật chi tiết đơn hàng thành công",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.reload();
+                        } else {
+                            swal("nothing happen");
+                        }
+                    });
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        function deleteLoaiSP(id) {
+
+            $.ajax({
+                url: "../../api/OrderDetailAPI/Delete/" + id,
+                type: "DELETE",
+                contentType: "Application/json;charset-utf-8",
+                dataType: "json"
+            }).done(function (reponse) {
+                swal({
+                    title: "Xóa chi tiết đơn hàng thành công",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.reload();
+                        } else {
+                            swal("nothing happen");
+                        }
+                    });
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        $(document).ready(function () {
+            $('button[name=btn_create_custommer]').click(function (e) {
+                addLoaiSP();
+                e.preventDefault();
+            });
+        });
+        $('button[name=edit_custommer]').click(function (e) {
+            var id = $(this).data("idloaisp");
+            getLoaiSP(id);
+            e.preventDefault();
+        });
+        $('button[name=btn_update_custommer]').click(function (e) {
+            var id = $("#edit_id").val();
+            updateLoaiSP(id);
+            e.preventDefault();
+        });
+        $('button[name=btn_delete_custommer]').click(function (e) {
+            var id = $(this).data("idloaisp");
+            deleteLoaiSP(id);
+            e.preventDefault();
+        });
+    </script>
+}

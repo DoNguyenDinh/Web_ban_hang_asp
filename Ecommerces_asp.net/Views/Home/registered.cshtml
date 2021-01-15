@@ -1,0 +1,43 @@
+﻿@{ 
+    Layout = "_Layout";
+}
+@model Ecommerces_asp.net.Areas.Admin.Models.Register
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a asp-controller="Home" asp-action="registered"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <li><a asp-controller="Home" asp-action="login">Login</a> </li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- register -->
+<div class="register">
+    <div class="container">
+        <h2>Register Here</h2>
+        <div class="login-form-grids">          
+            <h6>Login information</h6>
+            <form asp-controller="Home" asp-action="registered" method="post">
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-group" required="required">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-group" placeholder="Password" required="required">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" required="required">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>               
+                <input type="submit" value="Register" class="btn btn-primary">
+            </form>
+        </div>
+        <div class="register-home">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+        </div>
+    </div>
+</div>

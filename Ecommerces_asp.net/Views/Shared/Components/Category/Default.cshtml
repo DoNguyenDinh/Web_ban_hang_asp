@@ -1,0 +1,4 @@
+﻿@foreach (var item in ViewBag.Category)
+{
+    <li><a asp-controller="Home" asp-action="product" asp-route-id="@item.Id">@item.NameVN</a></li>
+}

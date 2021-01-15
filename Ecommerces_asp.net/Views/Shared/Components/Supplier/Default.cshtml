@@ -1,0 +1,4 @@
+﻿@foreach (var item in ViewBag.brand)
+{
+    <li><a asp-controller="Home" asp-action="product2" asp-route-id="@item.Id">@item.Name</a></li>
+}

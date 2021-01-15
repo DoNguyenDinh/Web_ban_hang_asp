@@ -1,0 +1,288 @@
+﻿@model Ecommerces_asp.net.Areas.Admin.Models.Customer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" id="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fullname" class="control-label"></label>
+                        <input asp-for="Fullname" id="fullname" class="form-control" />
+                        <span asp-validation-for="Fullname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" id="email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="address" class="control-label"></label>
+                        <input asp-for="address" id="address" class="form-control" />
+                        <span asp-validation-for="address" class="text-danger"></span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_create_custommer" class="btn btn-primary">Thêm Mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" id="edit_id" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" id="edit_password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fullname" class="control-label"></label>
+                        <input asp-for="Fullname" id="edit_fullname" class="form-control" />
+                        <span asp-validation-for="Fullname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" id="edit_email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="address" class="control-label"></label>
+                        <input asp-for="address" id="edit_address" class="form-control" />
+                        <span asp-validation-for="address" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_update_custommer" class="btn btn-primary">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h2 style="padding-top:100px">Custommers</h2>
+
+<p>
+    <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddModal">Thêm</button></center>
+</p>
+<table class="table table-bordered" style="padding-top:100px">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+           
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.cus)
+        {
+            <tr>
+                <td>
+                    @item.Password
+                </td>
+                <td>
+                    @item.Fullname
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.address
+                </td>
+                <td>
+                    <button type="button" name="edit_custommer" data-idloaisp="@item.Id" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Edit</button> 
+                </td>
+                @*<td>
+                    <button type="button" name="btn_detail_custommer" data-idloaisp="@item.Id" class="btn btn-primary" data-toggle="modal" data-target="#detailModal">Edit</button>
+                </td>*@
+                <td>
+                    <button type="button" name="btn_delete_custommer" data-idloaisp="@item.Id" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function addLoaiSP() {
+            var insert = {};
+            insert.Password = $("#password").val();
+            insert.Fullname = $("#fullname").val();
+            insert.Email = $("#email").val();
+            insert.address = $("#address").val();
+            $.ajax({
+                url: "../../api/CustommerAPI/PostCus",
+                type: "POST",
+                contentType: "Application/json;charset-utf-8",
+                data: JSON.stringify(insert),
+                dataType: "json"
+            }).done(function (reponse) {
+                swal({
+                    title: "Thêm khách hàng thành công",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.reload();
+                        } else {
+                            swal("nothing happen");
+                        }
+                    });
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        function getLoaiSP(id) {
+            $.ajax({
+                url: "../../api/CustommerAPI/GetCus/" + id,
+                type: "GET",
+                contentType: "Application/json;charset-utf-8",
+                dataType: "json"
+            }).done(function (reponse) {
+                $("#edit_id").val(reponse.id);
+                $("#edit_password").val(reponse.password);
+                $("#edit_fullname").val(reponse.fullname);
+                $("#edit_email").val(reponse.email);
+                $("#edit_address").val(reponse.address);
+
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        function updateLoaiSP(id) {
+            var update = {}
+            update.Id = parseInt(id);
+            update.Password = $("#edit_password").val();
+            update.Fullname = $("#edit_fullname").val();
+            update.Email = $("#edit_email").val();
+            update.address = $("#edit_address").val();
+            $.ajax({
+                url: "../../api/CustommerAPI/PutCus/" + id,
+                type: "PUT",
+                contentType: "Application/json;charset-utf-8",
+                data: JSON.stringify(update),
+                dataType: "json"
+            }).done(function (reponse) {
+                //swal("Cập nhật khách hàng thành công!", "success");
+                //location.reload();
+                swal({
+                    title: "Cập nhật khách hàng thành công",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.reload();
+                        } else {
+                            swal("nothing happen");
+                        }
+                    });
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        function deleteLoaiSP(id) {
+
+            $.ajax({
+                url: "../../api/CustommerAPI/Delete/" + id,
+                type: "DELETE",
+                contentType: "Application/json;charset-utf-8",
+                dataType: "json"
+            }).done(function (reponse) {
+                //swal("Xóa khách hàng thành công!", "success");
+                //location.reload();
+                swal({
+                    title: "Xóa khách hàng thành công",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            location.reload();
+                        } else {
+                            swal("nothing happen");
+                        }
+                    });
+            }).fail(function () {
+                alert('Thất bại !');
+            });
+        }
+        $(document).ready(function () {
+            $('button[name=btn_create_custommer]').click(function (e) {
+                addLoaiSP();
+                e.preventDefault();
+            });
+        });
+        $('button[name=edit_custommer]').click(function (e) {
+            var id = $(this).data("idloaisp");
+            getLoaiSP(id);
+            e.preventDefault();
+        });
+        $('button[name=btn_update_custommer]').click(function (e) {
+            var id = $("#edit_id").val();
+            updateLoaiSP(id);
+            e.preventDefault();
+        });
+        $('button[name=btn_delete_custommer]').click(function (e) {
+            var id = $(this).data("idloaisp");
+            deleteLoaiSP(id);
+            e.preventDefault();
+        });
+        //$('button[name=btn_detail_custommer]').click(function (e) {
+        //    var id = $(this).data("idloaisp");
+        //    getLoaiSP(id);
+        //    e.preventDefault();
+        //});
+    </script>
+}
